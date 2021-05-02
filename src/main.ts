@@ -7,6 +7,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import helmet from 'fastify-helmet';
+import {join} from 'path'
 
 declare const module: any;
 
@@ -23,6 +24,10 @@ async function bootstrap() {
 
   app.enableCors();
   app.setGlobalPrefix('api');
+  app.useStaticAssets({
+    root: join(__dirname, '..', 'public'),
+    prefix: '/public/',
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
